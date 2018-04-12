@@ -1,0 +1,154 @@
+<!DOCTYPE html>  
+<html>  
+  
+<head>  
+ <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />  
+ <title>CSSA王者荣耀抽签系统</title> 
+  <h1>CSSA王者荣耀比赛</h1>
+ <style type="text/css">  
+  .container{background-color:#ffff99;  
+    margin-top:10px;margin-left:300px;margin-right:300px;width:auto;height:auto;}  
+ </style>  
+ <script>  
+    var num = 0;  
+    var arr = new Array();  
+    var vis = new Array();  
+    var mark = new Array();  
+    var stringpro = "王人禾全球粉丝后援会,臭鱼烂虾队,重量级煎饼🥞,GQ超会玩,ERA,鑫鑫殷殷粉丝团,Blank"  
+    var pro = new Array();  
+    pro = stringpro.split(",");  
+    var c = 0;  
+    var k = 0;  
+    var t;  
+    var tt;  
+    var flag = true;  
+    //for(var i = 0; i < 19; i++)  
+    //  vis[i] = i+1;  
+  
+    var cont = 0;  
+    while(1)  
+    {  
+            var tt = parseInt(Math.random()*7+1);  
+            if(!mark[tt])  
+            {  
+            mark[tt] = 1;  
+                vis[cont++] = tt;  
+            }  
+            if(cont == 7)  
+                break;  
+    }  
+      
+ function timedCount()  
+ {  
+    document.getElementById('txt').value = c;  
+    k = k+1;  
+    k = k%(vis.length);  
+    c = vis[k];  
+      
+    t = setTimeout("timedCount()",50)  
+  
+ }  
+  
+ function solve1()  
+ {  
+    if(flag == true)  
+    {  
+        timedCount();  
+        flag = false;  
+    }  
+ }  
+  
+ function stopCount()  
+ {  
+    clearTimeout(t);  
+    tt = document.getElementById('txt').value  
+ }  
+  
+ function Random()  
+ {    
+    //tt = parseInt(Math.random()*19+1);  
+    var draw = document.getElementById("display");  
+    num++;  
+    arr.push(tt);  
+    var tmp = tt;  
+    tmp--;  
+    draw.innerHTML = draw.innerHTML + "<h1>第"+num+"组抽中："+pro[tmp]+"<br/></h1>";  
+    var tmp = new Array();  
+    tmp.length = 0;  
+    var cnt = 0;  
+    for(var i = 0; i < vis.length; i++)  
+    {  
+        if(vis[i] != tt)  
+        {  
+            tmp[cnt] = vis[i];  
+            cnt = cnt+1;  
+        }  
+    }  
+    vis.length = 0;  
+    for(var i = 0; i < tmp.length; i++)  
+    {  
+        vis[i] = tmp[i];  
+    }  
+    document.getElementById("count").innerHTML = arr.length;  
+    if(arr.length == 7){  
+        alert("已经抽完!");  
+    }  
+ }  
+  
+ function solve2()  
+ {  
+    if(flag == false)  
+    {stopCount();Random(); flag = true;}  
+ }  
+      
+ function Clear(){  
+    arr = null;  
+    arr = new Array();  
+  
+    mark = new Array();  
+    var cont = 0;  
+    while(1)  
+    {  
+            var tt = parseInt(Math.random()*7+1);  
+            if(!mark[tt])  
+            {  
+            mark[tt] = 1;  
+                vis[cont++] = tt;  
+            }  
+            if(cont == 7)  
+                break;  
+    }  
+  
+    //for(var i = 0; i < 19; i++)  
+    //  vis[i] = i+1;  
+  
+    k = 0;  
+    num = 0;  
+    c = 0;  
+    clearTimeout(t);  
+    document.getElementById('txt').value=  "0";  
+    document.getElementById("count").innerHTML = "0";  
+    document.getElementById("display").innerHTML = "";  
+ }  
+ </script>  
+</head>  
+  
+<body>  
+  
+<div class = "container">  
+    <input type = "text" style = "border:0px;text-align:center;font-size:60px;background-color:#ffff99;" id = "txt">  
+    <br>  
+    <br>  
+    <font size = "20"> 目前已经抽出<span id = "count"> 0 </span>个!</font>  
+    <br>  
+    <input type = "button" style = 'font-size:30px' value = "开始" onclick = "solve1(); "/>     
+    <input type = "button" style = 'font-size:30px' value = "停止" onClick = "solve2()">    
+    <input type = "button" style = 'font-size:30px' value = "清空" onclick = "Clear();"/>  
+    <br>  
+    <br>  
+    <span id = "display"></span>  
+    <br>  
+</div>  
+  
+</body>  
+</html>  
